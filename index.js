@@ -5,6 +5,10 @@ const crypto = require('crypto');
 const tambola = require('tambola-generator').default;
 const TambolaTicket =  require('tambola-generator').TambolaTicket;
 
+const cssTable = '<style> table { border: 2px solid red } table td { border: 1px solid blue } </style>';
+const cssMarker = '<style>.marker { color: red; font-family: Arial; font-size: 128px; font-weight: bold; text-align: center; width: 128px; height: 128px; position: absolute; opacity: 1; } .show {display:block} .hide {display:none} </style>';
+const markerFunctions = "<script>function toggleMarker(elem) { var span = elem.parentNode.children[0]; if (span.attributes.getNamedItem('class').value.indexOf('show') > -1) {span.className='marker hide';} else {span.className='marker show';}}</script>";
+
 global.boardLayouts = new Map();
 global.boardDraws = new Map();
 global.runningBoards = new Map();
@@ -145,7 +149,7 @@ app.get('/ticket/:id', (req, res) => {
   if (tickets.has(ticketId)) {
     var ticket = tickets.get(ticketId);
     const boardId = boardTickets.get(ticketId);
-    var output="<style> table { border: 2px solid red } table td { border: 1px solid blue } </style><center>";
+    var output = markerFunctions + cssTable + cssMarker + "<center>";
     output+="<h3>Ticket Id : " + ticketId + "</h3>";
     output+="<h3> Board Id : " + boardId + "</h3>";
     output+="<table cellspacing=10 cellpadding=10>";
@@ -170,7 +174,7 @@ function getTicketRowLogos(ticketRow, boardId) {
     if (ticketRow[i] === 0) {
       output+="<td></td>";
     } else {
-      output+="<td><img width=128 src='"+logos.get(layout[ticketRow[i]-1])+"'>"+"</td>";
+      output+="<td><span ondblclick='toggleMarker(this);' class='marker hide'>X</span><img width=128 src='"+logos.get(layout[ticketRow[i]-1])+"' ondblclick='toggleMarker(this);' ondblclick='hideMarker(this);'>"+"</td>";
     }
   }
   output+="</tr>";
@@ -201,33 +205,7 @@ app.get('/board/:id', (req, res) => {
   const boardId = req.params.id;
   if (boardLayouts.has(boardId)) {
     var companies = boardLayouts.get(boardId);
-    var output='<style> table { border: 2px solid red } table td { border: 1px solid blue } </style><center><table cellspacing=10 cellpadding=10>';
-    var row = 1;
-    var col = 1;
-    var cnt = 0;
-    for (row=1;row<10;row++) {
-      output+="<tr>"
-      for (col=1;col<11;col++) {
-        output+="<td>";
-        output+="<img width=128 src='"+logos.get(companies[cnt])+"'>";
-        cnt++;
-        output+="</td>";
-      }
-      output+="</tr>"
-    }
-    output+="</table></center>"
-    //res.format("text/html");   
-    res.send(output);
-  } else {
-  res.send("Invalid board id");
-  }
-});
-
-app.get('/board/:id/run', (req, res) => {
-  const boardId = req.params.id;
-  if (boardLayouts.has(boardId)) {
-    var companies = boardLayouts.get(boardId);
-    var output='<style> table { border: 2px solid red } table td { border: 1px solid blue } </style><center><table cellspacing=10 cellpadding=10>';
+    var output=cssTable + "<center><table cellspacing=10 cellpadding=10>";
     var row = 1;
     var col = 1;
     var cnt = 0;
