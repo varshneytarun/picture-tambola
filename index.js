@@ -7,7 +7,8 @@ const TambolaTicket =  require('tambola-generator').TambolaTicket;
 
 const cssTable = '<style> table { border: 2px solid red } table td { border: 1px solid blue } </style>';
 const cssMarker = '<style>.marker { color: red; font-family: Arial; font-size: 128px; font-weight: bold; text-align: center; width: 128px; height: 128px; position: absolute; opacity: 1; } .show {display:block} .hide {display:none} </style>';
-const markerFunctions = "<script>function toggleMarker(elem) { var span = elem.parentNode.children[0]; if (span.attributes.getNamedItem('class').value.indexOf('show') > -1) {span.className='marker hide';} else {span.className='marker show';}}</script>";
+const markerFunctions = "<script>function toggleMarker(elem) { var span = elem.parentNode.children[0]; if (span.attributes.getNamedItem('class').value.indexOf('hide') > -1) {span.className='marker show';} else { if(confirm('Are you sure to unmark this picture?')){span.className='marker hide'; }}}</script>";
+
 
 global.boardLayouts = new Map();
 global.boardDraws = new Map();
@@ -174,7 +175,7 @@ function getTicketRowLogos(ticketRow, boardId) {
     if (ticketRow[i] === 0) {
       output+="<td></td>";
     } else {
-      output+="<td><span ondblclick='toggleMarker(this);' class='marker hide'>X</span><img width=128 src='"+logos.get(layout[ticketRow[i]-1])+"' ondblclick='toggleMarker(this);' ondblclick='hideMarker(this);'>"+"</td>";
+      output+="<td><span onclick='toggleMarker(this);' class='marker hide'>X</span><img width=128 src='"+logos.get(layout[ticketRow[i]-1])+"' onclick='toggleMarker(this);' ondblclick='hideMarker(this);'>"+"</td>";
     }
   }
   output+="</tr>";
