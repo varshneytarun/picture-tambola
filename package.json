@@ -7,8 +7,13 @@
   "scripts": {
     "start": "node index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "logos",
+    "tambola",
+    "housie",
+    "game"
+  ],
+  "author": "Tarun Varshney",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.3",
