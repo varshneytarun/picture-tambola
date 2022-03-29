@@ -1,7 +1,8 @@
 {
   "name": "picture-tambola",
   "version": "1.0.0",
-  "description": "",
+  "description": "Picture Tambola",
+  "repository": "https://github.com/varshneytarun/picture-tambola.git",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
