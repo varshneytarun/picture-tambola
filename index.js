@@ -101,10 +101,10 @@ app.get('/board/init', (req, res) => {
     var keys = Array.from(logos.keys());
     keys.sort(() => Math.random() - 0.5);
     // as tambola only has 90 elements on board
-    const boardSeq = keys.slice(0, 90);
-    boardLayouts.set(boardId, boardSeq);
+    const boardLayout = keys.slice(0, 90);
+    boardLayouts.set(boardId, boardLayout);
     boardDraws.set(boardId, tambola.getDrawSequence());
-    res.json({ "valid": true, "boardId": boardId, "boardSequence": boardDraws.get(boardId) });
+    res.json({ "valid": true, "boardId": boardId });
   } else {
     res.json({ "valid": false });
   }
@@ -122,14 +122,14 @@ app.get('/board/:id', (req, res) => {
       output += "<tr>"
       for (col = 1; col < 11; col++) {
         output += "<td>";
-        output += "<img width=128 src='" + logos.get(companies[cnt]) + "'>";
+        output += "<img width=128 src='" + logos.get(companies[cnt]) + "' title='" + companies[cnt] + "'>";
         cnt++;
         output += "</td>";
       }
       output += "</tr>"
     }
     output += "</table></center>"
-    res.json({ "valid": true, "boardHtml": output });
+    res.json({ "valid": true, "boardId": boardId, "boardSequence": boardDraws.get(boardId), "boardLayout" : boardLayouts.get(boardId), "boardHtml": output });
   } else {
     res.json({ "valid": false });
   }

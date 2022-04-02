@@ -7,44 +7,74 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
 
-      var boardId, boardSeq;
+      var boardId, boardSeq, boardLayout, boardCnt = 1;
       
-      function generateBoard() {
-        if ($('#accessKey').val().trim() === '') {
-          alert('Please enter access key to generate board');
+      function generateBoard(key) {
+        if (key === '') {
+          alert('Please enter access key / board id to continue');
         } else {
-          $.ajax('/board/init?accessKey=' + $('#accessKey').val().trim())
-          .done(function(data) {
-            if (data.valid) {
-              boardId = data.boardId;
-              boardSeq = data.boardSequence;
-              $('#boardId').html('Board Id = ' + boardId);
-              $('#boardSeq').html('Board Sequence = ' + boardSeq);
-              $('#playForm').show();
-              $('#boardForm').hide();
-              renderBoard();
+          //if the provided id is a valid boardId then directly render
+          $.ajax('/board/'+ key)
+          .done(function (dat) {
+            if (dat.valid) {
+              showBoard(dat);
             } else {
-              alert("Invalid access key, try again!");
+              //else init new board using it as access key
+              initBoard();
             }
-          })
-          .fail(function(data) {
-              alert( "It bombed!" );
           })
         }
       }
 
-      function renderBoard() {
-        $.ajax('/board/'+boardId)
+      function initBoard() {
+        $.ajax('/board/init?accessKey=' + $('#accessKey').val().trim())
         .done(function(data) {
           if (data.valid) {
-            $('#boardDiv').html(data.boardHtml);
+            generateBoard(data.boardId);
           } else {
-            alert("Invalid board id, try again!");
+            alert("Invalid access key, try again!");
           }
-         })
-        .fail(function(data) {
-          alert( "It bombed!" );
         })
+        .fail(function(data) {
+            alert( "It bombed!" );
+        })
+      }
+
+      function showBoard(data) {
+        boardId = data.boardId;
+        boardSeq = data.boardSequence;
+        boardLayout = data.boardLayout;
+        $('#boardId').html('Board Id = ' + boardId);
+        $('#playForm').show();
+        $('#boardForm').hide();
+        renderBoard(data.boardHtml);
+      }
+
+      function renderBoard(boardHtml) {
+        if (boardHtml) {
+          $('#boardDiv').html(boardHtml);
+        } else {
+          $.ajax('/board/' + boardId)
+          .done(function(data) {
+            if (data.valid) {
+              $('#boardDiv').html(data.boardHtml);
+            } else {
+              alert("Invalid board id, try again!");
+            }
+           })
+          .fail(function(data) {
+            alert( "It bombed!" );
+          })
+        }
+      }
+
+      function nextDraw() {
+        if (boardCnt < 91) {
+          alert(boardLayout[boardSeq[boardCnt - 1] - 1]);
+          boardCnt++;
+        } else {
+          alert('Board is fully drawn!');
+        }
       }
       
     </script>
@@ -57,21 +87,20 @@
           <h4>Enter the below details to init board / play</h4>
 
           <div class="form-floating mb-3">
-              <input class="form-control" id="accessKey" type="text" placeholder="Access Key" required />
-              <label for="accessKey">Access Key</label>
+              <input class="form-control" id="accessKey" type="text" placeholder="Access Key OR Board Id" required />
+              <label for="accessKey">Access Key / Board Id</label>
           </div>
           <div class="d-grid">
-              <button class="btn btn-primary btn-lg" type="button" onclick="generateBoard();">Create a Board</button>
+              <button class="btn btn-primary btn-lg" type="button" onclick="generateBoard($('#accessKey').val().trim());">Create/Retrieve a Board</button>
           </div>
         </form>
 
          <form id="playForm" style="display:none">
           <div class="form-floating mb-3">
               <h3 id="boardId"></h3>
-              <h4 id="boardSeq"></h4>
           </div>
           <div class="d-grid">
-              <button class="btn btn-primary btn-lg" type="button" onclick="renderBoard();">Play !</button>
+            <button class="btn btn-primary btn-lg" type="button" onclick="nextDraw();">Play !</button>
           </div>
         </form>
         
