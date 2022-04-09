@@ -19,12 +19,12 @@ function getLogos() {
   logos.set('Walgreens','https://logo.clearbit.com/walgreens.com');
   logos.set('JPMorgan Chase','https://logo.clearbit.com/jpmorganchase.com');
   logos.set('Google','https://logo.clearbit.com/google.com');
-  logos.set('Byju\'s','https://logo.clearbit.com/byjus.com');
+  logos.set('Sony','https://logo.clearbit.com/sony.com');
   logos.set('General Electric','https://logo.clearbit.com/ge.com');
   logos.set('Starbucks','https://logo.clearbit.com/starbucks.com');
   logos.set('IKEA','https://logo.clearbit.com/ikea.com');
-  logos.set('Valero Energy','https://logo.clearbit.com/valero.com');
-  logos.set('Bank of America','https://logo.clearbit.com/bofa.com');
+  logos.set('NASA','https://logo.clearbit.com/nasa.gov');
+  logos.set('Ferrari','https://logo.clearbit.com/ferrari.com');
   logos.set('Microsoft','https://logo.clearbit.com/microsoft.com');
   logos.set('Home Depot','https://logo.clearbit.com/homedepot.com');
   logos.set('Boeing','https://logo.clearbit.com/boeing.com');
@@ -56,7 +56,7 @@ function getLogos() {
   logos.set('Louis Vuitton','https://logo.clearbit.com/louisvuitton.com');
   logos.set('HP','https://logo.clearbit.com/hp.com');
   logos.set('Paytm','https://logo.clearbit.com/paytm.com');
-  logos.set('Facebook','https://logo.clearbit.com/facebook.com');
+  logos.set('Meta','https://logo.clearbit.com/meta.com');
   logos.set('Caterpillar','https://logo.clearbit.com/caterpillar.com');
   logos.set('Vodafone','https://logo.clearbit.com/vodafone.com');
   logos.set('Nestle','https://logo.clearbit.com/nestle.com');

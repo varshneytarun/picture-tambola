@@ -1,4 +1,5 @@
 const app = require('express')();
+const { Server } = require('ws');
 const bodyParser = require('body-parser');
 const path = require('path');
 const crypto = require('crypto');
@@ -61,7 +62,7 @@ app.get('/ticket/:id', (req, res) => {
   if (tickets.has(ticketId)) {
     var ticket = tickets.get(ticketId);
     const boardId = boardTickets.get(ticketId);
-    var output = assets.markerFunctions + assets.cssTable + assets.cssMarker + "<center>";
+    var output = assets.jQuery + assets.markerFunctions + "<script>const boardId = '" + boardId + "';</script>" + assets.wsFunctions + assets.cssTable + assets.cssMarker + "<center>";
     output += "<h3>  Ticket Id : " + ticketId + "</h3>";
     output += "<h3>   Board Id : " + boardId + "</h3>";
     output += "<h3>Player Name : " + ticketPlayers.get(ticketId) + "</h3>";
@@ -69,7 +70,9 @@ app.get('/ticket/:id', (req, res) => {
     output += getTicketRowLogos(ticket.getRowValues(0), boardId);
     output += getTicketRowLogos(ticket.getRowValues(1), boardId);
     output += getTicketRowLogos(ticket.getRowValues(2), boardId);
-    output += "</table></center>"
+    output += "</table>";
+    output += "<div><h2>Next :</h2><h1 id='nextPicture'></h1></div>";
+    output += "</center>";
     /*console.log(ticketId);
     console.log(ticket.getRowValues(0));
     console.log(ticket.getRowValues(1));
@@ -129,7 +132,19 @@ app.get('/board/:id', (req, res) => {
       output += "</tr>"
     }
     output += "</table></center>"
-    res.json({ "valid": true, "boardId": boardId, "boardSequence": boardDraws.get(boardId), "boardLayout" : boardLayouts.get(boardId), "boardHtml": output });
+    res.json({ "valid": true, "boardId": boardId, "boardSequence": boardDraws.get(boardId), "boardLayout": boardLayouts.get(boardId), "boardHtml": output });
+  } else {
+    res.json({ "valid": false });
+  }
+});
+
+app.post('/board/:id/play', (req, res) => {
+  const boardId = req.params.id;
+  if (boardLayouts.has(boardId)) {
+    const play = req.body.next;
+    wss.clients.forEach((client) => {
+      client.send(JSON.stringify({ boardId: boardId, next: play }));
+    });
   } else {
     res.json({ "valid": false });
   }
@@ -147,6 +162,19 @@ app.post('/play/submit', (req, res) => {
 }
 );
 
-app.listen(process.env.PORT || 3000, () => {
+const server = app.listen(process.env.PORT || 3000, () => {
   console.log('server started');
 });
+
+const wss = new Server({ server });
+
+wss.on('connection', (ws) => {
+  console.log('Client connected');
+  ws.on('close', () => console.log('Client disconnected'));
+});
+
+/*setInterval(() => {
+  wss.clients.forEach((client) => {
+    client.send(new Date().toTimeString());
+  });
+}, 2000);*/
