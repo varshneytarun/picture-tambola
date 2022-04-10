@@ -124,8 +124,8 @@ app.get('/board/:id', (req, res) => {
     for (row = 1; row < 10; row++) {
       output += "<tr>"
       for (col = 1; col < 11; col++) {
-        output += "<td>";
-        output += "<img width=128 id='" + boardId + "-" + (cnt+1) + "' src='" + logos.get(companies[cnt]) + "' title='" + companies[cnt] + "'>";
+        output += "<td style='vertical-align:top'>";
+        output += "<img width=128 id='" + boardId + "-" + (cnt + 1) + "' src='" + logos.get(companies[cnt]) + "' title='" + companies[cnt] + "'>";
         cnt++;
         output += "</td>";
       }
@@ -143,7 +143,7 @@ app.post('/board/:id/play', (req, res) => {
   if (boardLayouts.has(boardId)) {
     const play = req.body.next;
     wss.clients.forEach((client) => {
-      client.send(JSON.stringify({ boardId: boardId, next: play }));
+      client.send(JSON.stringify({ boardId: boardId, next: play, ping: false }));
     });
   } else {
     res.json({ "valid": false });
@@ -173,8 +173,8 @@ wss.on('connection', (ws) => {
   ws.on('close', () => console.log('Client disconnected'));
 });
 
-/*setInterval(() => {
+setInterval(() => {
   wss.clients.forEach((client) => {
-    client.send(new Date().toTimeString());
+    client.send(JSON.stringify({ ping: true }));
   });
-}, 2000);*/
+}, 1000);
