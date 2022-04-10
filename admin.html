@@ -48,7 +48,6 @@
         $('#playForm').show();
         $('#boardForm').hide();
         renderBoard(data.boardHtml);
-        initPlaySocket();
       }
 
       function renderBoard(boardHtml) {
@@ -73,9 +72,11 @@
         if (boardCnt < 91) {
           var sel = boardLayout[boardSeq[boardCnt - 1] - 1];
           alert(sel);
-          boardCnt++;
           $.post('/board/' + boardId + '/play', { next: sel });
-        } else {
+          $('#' + boardId + '-' + boardSeq[boardCnt - 1])
+            .before("<span class='marker'>❌</span>");
+          boardCnt++;
+      } else {
           alert('Board is fully drawn!');
         }
       }

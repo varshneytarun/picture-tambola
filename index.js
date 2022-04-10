@@ -117,7 +117,7 @@ app.get('/board/:id', (req, res) => {
   const boardId = req.params.id;
   if (boardLayouts.has(boardId)) {
     var companies = boardLayouts.get(boardId);
-    var output = assets.cssTable + "<center><table cellspacing=10 cellpadding=10>";
+    var output = assets.cssTable + assets.cssMarker + "<center><table cellspacing=10 cellpadding=10>";
     var row = 1;
     var col = 1;
     var cnt = 0;
@@ -125,7 +125,7 @@ app.get('/board/:id', (req, res) => {
       output += "<tr>"
       for (col = 1; col < 11; col++) {
         output += "<td>";
-        output += "<img width=128 src='" + logos.get(companies[cnt]) + "' title='" + companies[cnt] + "'>";
+        output += "<img width=128 id='" + boardId + "-" + (cnt+1) + "' src='" + logos.get(companies[cnt]) + "' title='" + companies[cnt] + "'>";
         cnt++;
         output += "</td>";
       }
