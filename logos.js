@@ -30,8 +30,8 @@ function getLogos() {
   logos.set('Boeing','https://logo.clearbit.com/boeing.com');
   logos.set('Wells Fargo','https://logo.clearbit.com/wellsfargo.com');
   logos.set('Citigroup','https://logo.clearbit.com/citigroup.com');
-  logos.set('Subway','https://logo.clearbit.com/subway.com');
-  logos.set('Comcast','https://logo.clearbit.com/comcastcorporation.com');
+  logos.set('KFC','https://logo.clearbit.com/kfc.com');
+  logos.set('Honda','https://logo.clearbit.com/honda.com');
   logos.set('British Petroleum','https://logo.clearbit.com/bp.com');
   logos.set('Dell','https://logo.clearbit.com/delltechnologies.com');
   logos.set('Lego','https://logo.clearbit.com/lego.com');
@@ -74,8 +74,8 @@ function getLogos() {
   logos.set('American Express','https://logo.clearbit.com/americanexpress.com');
   logos.set('Nationwide','https://logo.clearbit.com/nationwide.com');
   logos.set('Best Buy','https://logo.clearbit.com/bestbuy.com');
-  logos.set('DHL','https://logo.clearbit.com/dhl.com');
-  logos.set('MG','https://logo.clearbit.com/mg.co.uk');
+  logos.set('LG','https://logo.clearbit.com/lg.com');
+  logos.set('Morris Garage','https://logo.clearbit.com/mg.co.uk');
   logos.set('Honeywell International','https://logo.clearbit.com/honeywell.com');
   logos.set('United Airlines','https://logo.clearbit.com/united.com');
   logos.set('IBM','https://logo.clearbit.com/ibm.com');
