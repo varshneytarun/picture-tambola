@@ -43,20 +43,6 @@ function generateTicket(boardId, player) {
   return ticketId;
 }
 
-app.get('/board/:id/ticket', (req, res) => {
-  const boardId = req.params.id;
-  if (boardLayouts.has(boardId)) {
-    var ticketId = generateTicket(boardId);
-    var output = "<style>.ticket { font-family: Courier; font-size:20px; font-weight:bold; }</style><h3>Ticket Id : " + ticketId + "</h3><div class='ticket'>";
-    output += tt.getRowValues(0).join(" ") + "<br/>";
-    output += tt.getRowValues(1).join(" ") + "<br/>";
-    output += tt.getRowValues(2).join(" ") + "<br/></div>";
-    res.send(output);
-  } else {
-    res.send("Invalid board id, cannot generate ticket for it.");
-  }
-});
-
 app.get('/ticket/:id', (req, res) => {
   const ticketId = req.params.id;
   if (tickets.has(ticketId)) {
