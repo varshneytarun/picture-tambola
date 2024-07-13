@@ -21,6 +21,7 @@
     "express": "^4.17.3",
     "tambola-generator": "^1.0.0",
     "utf-8-validate": "^5.0.9",
+    "vercel": "^32.3.0",
     "ws": "^8.5.0"
   }
 }
