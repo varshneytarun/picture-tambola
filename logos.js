@@ -3,7 +3,7 @@ function getLogos() {
   logos.set('Walmart', 'https://logo.clearbit.com/walmart.com');
   logos.set('Visa', 'https://logo.clearbit.com/visa.com');
   logos.set('Apple', 'https://logo.clearbit.com/apple.com');
-  logos.set('Dominos', 'https://logo.clearbit.com/dominos.com');
+  logos.set('Domino\'s', 'https://logo.clearbit.com/dominos.com');
   logos.set('Amazon', 'https://logo.clearbit.com/amazon.com');
   logos.set('Pizza Hut', 'https://logo.clearbit.com/pizzahut.com');
   logos.set('Zara', 'https://logo.clearbit.com/zara.com');
@@ -92,7 +92,7 @@ function getLogos() {
   logos.set('Nike', 'https://logo.clearbit.com/nike.com');
   logos.set('Target', 'https://logo.clearbit.com/target.com');
   logos.set('Jaguar', 'https://logo.clearbit.com/jaguar.com');
-  logos.set('Jeep', 'https://logo.clearbit.com/jeep.com');
+  logos.set('TikTok', 'https://logo.clearbit.com/tiktok.com');
   logos.set('Mastercard', 'https://logo.clearbit.com/mastercard.com');
   logos.set('3M', 'https://logo.clearbit.com/3m.com');
   logos.set('McDonalds', 'https://logo.clearbit.com/mcdonalds.com');
