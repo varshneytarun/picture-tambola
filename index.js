@@ -1,5 +1,12 @@
 const app = require('express')();
-const { Server } = require('ws');
+
+const http = require('http');
+const { Server } = require('socket.io');
+// Create HTTP server
+const server = http.createServer(app);
+// Set up Socket.IO
+const io = new Server(server);
+
 const bodyParser = require('body-parser');
 const path = require('path');
 const crypto = require('crypto');
@@ -125,13 +132,18 @@ app.get('/board/:id', (req, res) => {
   }
 });
 
+// Modify the '/board/:id/play' route to use Vercel's built-in response object
 app.post('/board/:id/play', (req, res) => {
   const boardId = req.params.id;
   if (boardLayouts.has(boardId)) {
     const play = req.body.next;
-    wss.clients.forEach((client) => {
-      client.send(JSON.stringify({ boardId: boardId, next: play, ping: false }));
-    });
+
+    // Use Vercel's response object to send a message to all connected clients
+    // Emit the play event to all connected clients
+    console.log(`Playing next: ${play} on board: ${boardId}`);
+    io.emit('play', { boardId: boardId, next: play, ping: false });
+
+    res.json({ "success": true });
   } else {
     res.json({ "valid": false });
   }
@@ -149,19 +161,16 @@ app.post('/play/submit', (req, res) => {
 }
 );
 
-const server = app.listen(process.env.PORT || 3000, () => {
+// Export the Express app
+module.exports = app;
+
+// WebSocket connection handling
+io.on('connection', (socket) => {
+  console.log('Client connected : ' + socket.id);
+  socket.on('disconnect', () => console.log('Client disconnected'));
+});
+
+// Start the server
+server.listen(process.env.PORT || 3000, () => {
   console.log('server started');
 });
-
-const wss = new Server({ server });
-
-wss.on('connection', (ws) => {
-  console.log('Client connected');
-  ws.on('close', () => console.log('Client disconnected'));
-});
-
-setInterval(() => {
-  wss.clients.forEach((client) => {
-    client.send(JSON.stringify({ ping: true }));
-  });
-}, 1000);
