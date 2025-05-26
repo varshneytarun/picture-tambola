@@ -1,13 +1,13 @@
 function getLogos() {
   var logos = new Map();
-  logos.set('Walmart', 'https://logo.clearbit.com/walmart.com');
+  logos.set('Minecraft', 'https://logo.clearbit.com/minecraft.com');
   logos.set('Visa', 'https://logo.clearbit.com/visa.com');
   logos.set('Apple', 'https://logo.clearbit.com/apple.com');
   logos.set('Domino\'s', 'https://logo.clearbit.com/dominos.com');
   logos.set('Amazon', 'https://logo.clearbit.com/amazon.com');
   logos.set('Pizza Hut', 'https://logo.clearbit.com/pizzahut.com');
   logos.set('Zara', 'https://logo.clearbit.com/zara.com');
-  logos.set('ICICI Bank', 'https://logo.clearbit.com/icicibank.com');
+  logos.set('Tesla', 'https://logo.clearbit.com/tesla.com');
   logos.set('AT&T', 'https://logo.clearbit.com/att.com');
   logos.set('Bharat Pe', 'https://logo.clearbit.com/bharatpe.com');
   logos.set('Chevron', 'https://logo.clearbit.com/chevron.com');
@@ -26,7 +26,7 @@ function getLogos() {
   logos.set('NASA', 'https://logo.clearbit.com/nasa.gov');
   logos.set('Ferrari', 'https://logo.clearbit.com/ferrari.com');
   logos.set('Microsoft', 'https://logo.clearbit.com/microsoft.com');
-  logos.set('Home Depot', 'https://logo.clearbit.com/homedepot.com');
+  logos.set('Taco Bell', 'https://logo.clearbit.com/tacobell.com');
   logos.set('Boeing', 'https://logo.clearbit.com/boeing.com');
   logos.set('Wells Fargo', 'https://logo.clearbit.com/wellsfargo.com');
   logos.set('Citigroup', 'https://logo.clearbit.com/citigroup.com');
@@ -65,7 +65,7 @@ function getLogos() {
   logos.set('Volkswagen', 'https://logo.clearbit.com/volkswagen.com');
   logos.set('Cisco Systems', 'https://logo.clearbit.com/cisco.com');
   logos.set('Cigna', 'https://logo.clearbit.com/cigna.com');
-  logos.set('AIG', 'https://logo.clearbit.com/aig.com');
+  logos.set('Wendy\'s', 'https://logo.clearbit.com/wendys.com');
   logos.set('JetBlue Airlines', 'https://logo.clearbit.com/jetblue.com');
   logos.set('Spicejet', 'https://logo.clearbit.com/spicejet.com');
   logos.set('Delta Airlines', 'https://logo.clearbit.com/delta.com');
