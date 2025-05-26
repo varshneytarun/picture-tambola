@@ -1,14 +1,14 @@
-const app = require('express')();
-
+const express = require('express');
+const app = express();
 const http = require('http');
+const bodyParser = require('body-parser');
+const path = require('path');
 const { Server } = require('socket.io');
 // Create HTTP server
 const server = http.createServer(app);
 // Set up Socket.IO
 const io = new Server(server);
 
-const bodyParser = require('body-parser');
-const path = require('path');
 const crypto = require('crypto');
 const tambola = require('tambola-generator').default;
 const TambolaTicket = require('tambola-generator').TambolaTicket;
@@ -26,6 +26,15 @@ global.options = { root: path.join(__dirname) };
 global.masterKey = process.env['masterKey'];
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Serve static files from the 'public' directory
+app.use(express.static('public'));
+
+// Debugging: Log requests to /socket.io/socket.io.js
+app.get('/socket.io/socket.io.js', (req, res, next) => {
+  console.log('Serving Socket.IO client library');
+  next();
+});
 
 //Landing page for players
 app.get('/', (req, res) => {
