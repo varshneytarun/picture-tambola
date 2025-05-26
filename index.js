@@ -22,12 +22,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //Landing page for players
 app.get('/', (req, res) => {
-  res.sendFile("play-form.html", options);
+  res.sendFile(path.join(__dirname, "play-form.html"));
 });
+
 
 //Admin page
 app.get('/admin', (req, res) => {
-  res.sendFile("admin.html", options);
+  res.sendFile(path.join(__dirname, "admin.html"));
 });
 
 function generateTicket(boardId, player) {
